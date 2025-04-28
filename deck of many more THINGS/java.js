@@ -47,7 +47,7 @@
       { name: "The Guild", description: "You become the leader of a powerful guild or faction with followers and influence." }
     ];
 
-let deck = [...initialDeck]; // Copy the initial deck for resetting purposes
+let deck = [...initialDeck];
 const pullCardBtn = document.getElementById('pull-card-btn');
 const resetDeckBtn = document.getElementById('reset-deck-btn');
 const showDescriptionBtn = document.getElementById('show-description-btn');
@@ -55,7 +55,7 @@ const pulledCardDiv = document.getElementById('pulled-card');
 const descriptionBox = document.getElementById('description-box');
 const cardDescription = document.getElementById('card-description');
 
-// Function to pull a card randomly
+
 function pullCard() {
     if (deck.length === 0) {
         pulledCardDiv.innerHTML = `<h2>No cards left to pull!</h2>`;
@@ -63,59 +63,59 @@ function pullCard() {
     }
 
     const randomIndex = Math.floor(Math.random() * deck.length);
-    const pulledCard = deck.splice(randomIndex, 1)[0]; // Pull the card and remove it from the deck
+    const pulledCard = deck.splice(randomIndex, 1)[0]; 
 
-    // Display the pulled card
+   
     pulledCardDiv.innerHTML = `
         <h2>You Pulled: ${pulledCard.name}</h2>
     `;
-    pulledCardDiv.style.display = 'block'; // Show the pulled card
+    pulledCardDiv.style.display = 'block'; 
 
-    // Show the reset deck and description buttons
+  
     resetDeckBtn.style.display = 'block';
     showDescriptionBtn.style.display = 'block';
 
-    // Store the description for later use
+   
     cardDescription.innerHTML = pulledCard.description;
-    descriptionBox.style.display = 'none'; // Hide description initially
+    descriptionBox.style.display = 'none'; 
 }
 
-// Function to toggle the description box
+
 function toggleDescription() {
     if (descriptionBox.style.display === 'none' || descriptionBox.style.display === '') {
-        descriptionBox.style.display = 'block'; // Show the description
-        showDescriptionBtn.innerHTML = 'Hide Description'; // Change button text to 'Hide'
+        descriptionBox.style.display = 'block'; 
+        showDescriptionBtn.innerHTML = 'Hide Description';
     } else {
-        descriptionBox.style.display = 'none'; // Hide the description
-        showDescriptionBtn.innerHTML = 'Show Description'; // Change button text back to 'Show'
+        descriptionBox.style.display = 'none'; 
+        showDescriptionBtn.innerHTML = 'Show Description'; 
     }
 }
 
-// Function to reset the deck
+
 function resetDeck() {
-    deck = [...initialDeck]; // Reset the deck back to its original state
-    resetDeckBtn.style.display = 'none'; // Hide the reset button
-    pulledCardDiv.style.display = 'none'; // Hide any previously pulled card
-    showDescriptionBtn.style.display = 'none'; // Hide the description button
-    descriptionBox.style.display = 'none'; // Hide the description box
+    deck = [...initialDeck]; 
+    resetDeckBtn.style.display = 'none'; 
+    pulledCardDiv.style.display = 'none'; 
+    showDescriptionBtn.style.display = 'none';
+    descriptionBox.style.display = 'none';
 }
 
-// Event listener to pull a card when the button is clicked
+
 pullCardBtn.addEventListener('click', pullCard);
 
-// Event listener to reset the deck
+
 resetDeckBtn.addEventListener('click', resetDeck);
 
-// Event listener to toggle the description visibility
+
 showDescriptionBtn.addEventListener('click', toggleDescription);
-// Set your client ID here (from Google Developer Console)
+
 const CLIENT_ID = '852529225824-euev19uv25vbh40d7usck444p4rq89q2.apps.googleusercontent.com';
 const API_KEY = 'AIzaSyDSzszuSSxPmry48Vf0aQwcnCEGWLHUwBg';
 
-// Scopes define the level of access you need, for saving data to Google Drive
+
 const SCOPES = 'https://www.googleapis.com/auth/drive.file';
 
-// Load the client library and authenticate
+
 function handleClientLoad() {
     gapi.load('client:auth2', initClient);
 }
@@ -126,20 +126,17 @@ function initClient() {
         clientId: CLIENT_ID,
         scope: SCOPES,
     }).then(() => {
-        // Sign in if necessary
         if (gapi.auth2.getAuthInstance().isSignedIn.get()) {
-            // Already signed in
         } else {
             gapi.auth2.getAuthInstance().signIn();
         }
     });
 }
 
-// Call this function to save the game state to Google Drive
 function saveToGoogleDrive(gameData) {
     const fileMetadata = {
-        'name': 'deckOfManyThings.json',  // Name of the file
-        'mimeType': 'application/json'   // MIME type for JSON
+        'name': 'deckOfManyThings.json',
+        'mimeType': 'application/json'  
     };
 
     const media = {
@@ -157,7 +154,7 @@ function saveToGoogleDrive(gameData) {
         console.error('Error uploading file', error);
     });
 }
-// After pulling a card
+
 function pullCard() {
     if (deck.length === 0) {
         pulledCardDiv.innerHTML = `<h2>No cards left to pull!</h2>`;
@@ -165,16 +162,16 @@ function pullCard() {
     }
 
     const randomIndex = Math.floor(Math.random() * deck.length);
-    const pulledCard = deck.splice(randomIndex, 1)[0]; // Pull the card and remove it from the deck
+    const pulledCard = deck.splice(randomIndex, 1)[0]; 
 
     // Display the pulled card
     pulledCardDiv.innerHTML = `
       <h2>You Pulled: ${pulledCard.name}</h2>
       <p>${pulledCard.description}</p>
     `;
-    pulledCardDiv.style.display = 'block'; // Show the pulled card
+    pulledCardDiv.style.display = 'block'; 
 
     // Save the updated game state
-    const gameState = { deck: deck, pulledCard: pulledCard };  // Save your game state
-    saveToGoogleDrive(gameState);  // Automatically save the state to Google Drive
+    const gameState = { deck: deck, pulledCard: pulledCard }; 
+    saveToGoogleDrive(gameState); 
 }
