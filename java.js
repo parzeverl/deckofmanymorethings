@@ -1,239 +1,180 @@
-particlesJS('particles-js', {
-    particles: {
-        number: {
-            value: 500,
-            density: {
-                enable: true,
-                value_area: 1100 
-            }
-        },
-        color: {
-            value: '#ffffff'
-        },
-        shape: {
-            type: 'circle', 
-            stroke: {
-                width: 3,
-                color: '#ffffff'
-            },
-        },
-        opacity: {
-            value: 0.5,
-            random: true,
-            anim: {
-                enable: true,
-                speed: 2,
-                opacity_min: 0.1,
-                sync: false
-            }
-        },
-        size: {
-            value: 10, 
-            random: true,
-            anim: {
-                enable: true,
-                speed: 1,
-                size_min: 0.1,
-                sync: false
-            }
-        },
-        line_linked: {
-            enable: true,
-            distance: 200,
-            color: '#f700ef',
-            opacity: 0,
-            width: 3,
-        },
-        move: {
-            enable: true,
-            speed: 3, 
-            direction: 'none',
-            random: true,
-            straight: false,
-            out_mode: 'out',
-            bounce: false
-        }
-    },
-    interactivity: {
-        detect_on: 'canvas',
-        events: {
-            onhover: {
-                enable: false,
-                mode: 'grab' 
-            },
-            onclick: {
-                enable: true,
-                mode: 'repulse'
-            }
-        }
-    },
-    retina_detect: true
-});
+  const initialDeck = [
+      { name: "Aberration", description: "You gain telepathy within a range of 90 feet." },
+      { name: "Balance*", description: "Your mind suffers a wrenching alteration, causing your alignment to change. Lawful become chaotic, good becomes evil, and vice versa. If you are true neutral or unaligned, this card has no effect on you." },
+      { name: "Beast", description: "You immediately transform into a random Beast with a CR of 5 or lower. Your game statistics—including your ability scores, hit points, and possible actions—are replaced by the Beast’s game statistics, and any nonmagical equipment you’re wearing or carrying melds into your new form and can’t be used. Any magic items you’re carrying drop in an unoccupied space within 5 feet of your new form.\n\nYou remain transformed in this way for 2d12 days; nothing can alter your form while you’re under the effects of this card, but the Wish spell can end the transformation early. When you revert to your normal form, you return to the same state you were in when you initially transformed." },
+      { name: "Book", description: "You gain the ability to speak, read, and write 1d6 + 2 languages of your choice." },
+      { name: "Bridge", description: "You gain the ability to cast the Time Stop spell 1d3 times. Use your Intelligence, Wisdom, or Charisma as the spellcasting ability (your choice)." },
+      { name: "Campfire", description: "You immediately gain the benefits of finishing a long rest." },
+      { name: "Cavern", description: "You gain a climbing speed equal to your walking speed. You also gain the ability to move up, down, across vertical surfaces, and along ceilings, while leaving your hands free." },
+      { name: "Celestial", description: "You sprout a pair of softly luminescent, feathered wings from your back and gain a flying speed of 30 feet." },
+      { name: "Comet*", description: "If you single-handedly defeat the next hostile monster or group of monsters you encounter, you gain experience points enough to gain one level. Otherwise, this card has no effect." },
+      { name: "Construct", description: "A homunculus appears in an unoccupied space within 5 feet of you. The appearance of the homunculus is determined by the DM, and the homunculus treats you as its creator." },
+      { name: "Corpse", description: "You immediately drop to 0 hit points, have the unconscious condition, and must begin making death saving throws. Spells and other magical effects that restore hit points have no effect on you until you are stabilized. If you fail three death saving throws, you die and can be resurrected only by the Wish spell." },
+      { name: "Crossroads", description: "Roll a d20. If the roll is even, you age 1d10 years. If the roll is odd, you become younger by 1d10 years, to a minimum of 1 year. This effect can be undone only by the Wish spell, divine intervention, or similar magic." },
+      { name: "Donjon*", description: "You disappear and become entombed in a state of suspended animation in an extradimensional sphere. Everything you were wearing and carrying stays behind in the space you occupied when you disappeared. You remain imprisoned until you are found and removed from the sphere. You can't be located by any divination magic, but a Wish spell can reveal the location of your prison. You draw no more cards." },
+      { name: "Door", description: "You gain the ability to cast the Gate spell 1d4 times, requiring no material components. Use your Intelligence, Wisdom, or Charisma as the spellcasting ability (your choice)." },
+      { name: "Dragon", description: "A dragon egg appears at your feet and immediately hatches into a dragon wyrmling. The type of dragon is chosen by the DM. The wyrmling views you as its parent and is staunchly loyal to you and your allies." },
+      { name: "Elemental", description: "You become immune to one of the following damage types (choose immediately upon drawing this card): acid, cold, fire, lightning, or thunder." },
+      { name: "Euryale*", description: "The card's medusa-like visage curses you. You take a -2 penalty on saving throws while cursed in this way. Only a god or the magic of The Fates card can end this curse." },
+      { name: "Expert", description: "Your Dexterity score increases by 2, to a maximum of 22." },
+      { name: "Fates*", description: "Reality's fabric unravels and spins anew, allowing you to avoid or erase one event as if it never happened. You can use the card's magic as soon as you draw the card or at any other time before you die." },
+      { name: "Fey", description: "A fey crossing opens into the Feywild, and you’re immediately pulled through it, disappearing in a flash of rainbow-colored light. You draw no more cards." },
+      { name: "Fiend", description: "A powerful Fiend appears in a nearby unoccupied space and offers you a deal. The precise nature of this deal is up to the DM, but usually the Fiend offers some material reward in exchange for you and your allies completing a task for the Fiend. The Fiend is indifferent to you and can be bargained with; it keeps its side of any bargain it makes, though it might twist the wording of any agreement to suit its purposes. If attacked, or if negotiations fail and you refuse the Fiend’s offer, it returns to its home plane." },
+      { name: "Flames*", description: "A powerful devil becomes your enemy. The devil seeks your ruin and plagues your life, savoring your suffering before attempting to slay you. This enmity lasts until either you or the devil dies." },
+      { name: "Fool*", description: "You lose 10,000 XP, discard this card, and draw from the deck again, counting both draws as one of your declared draws. If losing that much XP would cause you to lose a level, you instead lose an amount that leaves you with just enough XP to keep your level." },
+      { name: "Gem", description: "You gain a massive gem worth 50,000 gold pieces." },
+      { name: "Ghost", description: "You gain the ability to cast the Ghost Walk spell once. The spell lasts for 1 hour." },
+      { name: "Giant", description: "You immediately gain the effects of the Giant's Strength spell. For 1 hour, your Strength score becomes 25." },
+      { name: "Gold", description: "You gain 25,000 gold pieces, which appear in a bag at your feet." },
+      { name: "Hunger", description: "You gain a great hunger for knowledge, magic, or artifacts. You are compelled to find a specific magic item or magical knowledge—this can lead to an ongoing quest." },
+      { name: "Jester", description: "You gain 10,000 XP, or you can draw two cards from the deck of many things, keeping both results." },
+      { name: "Key", description: "You gain a magical key that can open any locked door or chest in the world, and the key's power lasts for one year." },
+      { name: "Knight", description: "You gain a loyal knight or paladin, bound to you for one year." },
+      { name: "Moon", description: "You gain the ability to cast the Wish spell once without needing to pay the material component cost." },
+      { name: "Ruin", description: "All your wealth and possessions are destroyed or stolen by the forces of fate. You lose half of all your money, magic items, and any other material possessions." },
+      { name: "Skull", description: "A powerful undead creature is summoned and forced to attack you." },
+      { name: "Star", description: "Your Wisdom score increases by 2, to a maximum of 22." },
+      { name: "Sun", description: "You immediately gain the benefits of a long rest, and you are cured of all ailments, curses, or diseases." },
+      { name: "Throne", description: "You gain the ability to rule a domain of your choice, such as a city, a keep, or a kingdom." },
+      { name: "Vizier", description: "You gain a powerful advisor who can provide insight on any subject or problem you face." },
+      { name: "The Fates*", description: "You are granted the ability to undo one event of your choosing, allowing you to reshape fate itself." },
+      { name: "The Moon", description: "You gain the ability to change your form at will, becoming any creature you have seen before." },
+      { name: "The Void", description: "A black hole opens and devours you, sending you to a distant dimension where you cannot be found." },
+      { name: "The Fool", description: "You draw no more cards. You cannot be sure if this is good or bad." },
+      { name: "The Dragon", description: "You gain a dragon's hoard! The DM decides how much treasure you obtain, but it’s a large amount of valuable items and gold!" },
+      { name: "The Stars", description: "The next time you make an attack roll, saving throw, or ability check, you gain advantage on the roll." },
+      { name: "The Crown", description: "You gain a powerful magical crown that grants you increased power and leadership abilities." },
+      { name: "The Guild", description: "You become the leader of a powerful guild or faction with followers and influence." }
+    ];
 
-let frameCount = 0;
-let lastTime = performance.now();
+let deck = [...initialDeck]; // Copy the initial deck for resetting purposes
+const pullCardBtn = document.getElementById('pull-card-btn');
+const resetDeckBtn = document.getElementById('reset-deck-btn');
+const showDescriptionBtn = document.getElementById('show-description-btn');
+const pulledCardDiv = document.getElementById('pulled-card');
+const descriptionBox = document.getElementById('description-box');
+const cardDescription = document.getElementById('card-description');
 
-function updateFPS() {
-    let now = performance.now();
-    let deltaTime = now - lastTime;
-    frameCount++;
-    if (deltaTime >= 1000) {
-        let fps = frameCount;
-        document.getElementById("fpsCounter").innerText = `FPS: ${fps}`;
-        frameCount = 0;
-        lastTime = now;
+// Function to pull a card randomly
+function pullCard() {
+    if (deck.length === 0) {
+        pulledCardDiv.innerHTML = `<h2>No cards left to pull!</h2>`;
+        return;
     }
-    requestAnimationFrame(updateFPS);
+
+    const randomIndex = Math.floor(Math.random() * deck.length);
+    const pulledCard = deck.splice(randomIndex, 1)[0]; // Pull the card and remove it from the deck
+
+    // Display the pulled card
+    pulledCardDiv.innerHTML = `
+        <h2>You Pulled: ${pulledCard.name}</h2>
+    `;
+    pulledCardDiv.style.display = 'block'; // Show the pulled card
+
+    // Show the reset deck and description buttons
+    resetDeckBtn.style.display = 'block';
+    showDescriptionBtn.style.display = 'block';
+
+    // Store the description for later use
+    cardDescription.innerHTML = pulledCard.description;
+    descriptionBox.style.display = 'none'; // Hide description initially
 }
 
-requestAnimationFrame(updateFPS);
-function showOverlay() {
-  document.getElementById("alert").style.display = "block";
+// Function to toggle the description box
+function toggleDescription() {
+    if (descriptionBox.style.display === 'none' || descriptionBox.style.display === '') {
+        descriptionBox.style.display = 'block'; // Show the description
+        showDescriptionBtn.innerHTML = 'Hide Description'; // Change button text to 'Hide'
+    } else {
+        descriptionBox.style.display = 'none'; // Hide the description
+        showDescriptionBtn.innerHTML = 'Show Description'; // Change button text back to 'Show'
+    }
 }
-function hideOverlay() {
-  document.getElementById("alert").style.display = "none";
+
+// Function to reset the deck
+function resetDeck() {
+    deck = [...initialDeck]; // Reset the deck back to its original state
+    resetDeckBtn.style.display = 'none'; // Hide the reset button
+    pulledCardDiv.style.display = 'none'; // Hide any previously pulled card
+    showDescriptionBtn.style.display = 'none'; // Hide the description button
+    descriptionBox.style.display = 'none'; // Hide the description box
 }
- <script>
-      const fullDeck = [
-    { name: "Aberration" },
-    { name: "Angel" },
-    { name: "Beast" },
-    { name: "Book" },
-    { name: "Bridge" },
-    { name: "Campfire" },
-    { name: "Cavern" },
-    { name: "Celestial" },
-    { name: "Clock" },
-    { name: "Construct" },
-    { name: "Corpse" },
-    { name: "Crossroads" },
-    { name: "Crown" },
-    { name: "Door" },
-    { name: "Dragon" },
-    { name: "Elemental" },
-    { name: "Expert" },
-    { name: "Fey" },
-    { name: "Fiend" },
-    { name: "Fountain" },
-    { name: "Gambler" },
-    { name: "Giant" },
-    { name: "Guardian" },
-    { name: "Heart" },
-    { name: "Humanoid" },
-    { name: "Jester" },
-    { name: "Key" },
-    { name: "Lance" },
-    { name: "Mage" },
-    { name: "Map" },
-    { name: "Maze" },
-    { name: "Mine" },
-    { name: "Mirror" },
-    { name: "Monstrosity" },
-    { name: "Mountain" },
-    { name: "Ooze" },
-    { name: "Path" },
-    { name: "Pit" },
-    { name: "Plant" },
-    { name: "Priest" },
-    { name: "Prisoner" },
-    { name: "Ring" },
-    { name: "Rogue" },
-    { name: "Scroll" },
-    { name: "Shield" },
-    { name: "Ship" },
-    { name: "Skull" },
-    { name: "Snake" },
-    { name: "Sorcerer" },
-    { name: "Staff" },
-    { name: "Stairway" },
-    { name: "Statue" },
-    { name: "Storm" },
-    { name: "Sword" },
-    { name: "Tavern" },
-    { name: "Temple" },
-    { name: "Throne" },
-    { name: "Tomb" },
-    { name: "Tower" },
-    { name: "Trade" },
-    { name: "Tree" },
-    { name: "Undead" },
-    { name: "Warrior" },
-    { name: "Waterfall" },
-    { name: "Well" },
-    { name: "Wheel" },
-    { name: "Wish" }
-];
 
+// Event listener to pull a card when the button is clicked
+pullCardBtn.addEventListener('click', pullCard);
 
-        let currentDeck = [...fullDeck]; // Clone full deck to current deck
+// Event listener to reset the deck
+resetDeckBtn.addEventListener('click', resetDeck);
 
-        function updateDropdown() {
-            let dropdown = document.getElementById("remove-card");
-            dropdown.innerHTML = '<option value="">Select a card</option>'; // Reset dropdown
-            currentDeck.forEach(card => {
-                let option = document.createElement("option");
-                option.value = card.name;
-                option.textContent = card.name;
-                dropdown.appendChild(option);
-            });
+// Event listener to toggle the description visibility
+showDescriptionBtn.addEventListener('click', toggleDescription);
+// Set your client ID here (from Google Developer Console)
+const CLIENT_ID = '852529225824-euev19uv25vbh40d7usck444p4rq89q2.apps.googleusercontent.com';
+const API_KEY = 'AIzaSyDSzszuSSxPmry48Vf0aQwcnCEGWLHUwBg';
+
+// Scopes define the level of access you need, for saving data to Google Drive
+const SCOPES = 'https://www.googleapis.com/auth/drive.file';
+
+// Load the client library and authenticate
+function handleClientLoad() {
+    gapi.load('client:auth2', initClient);
+}
+
+function initClient() {
+    gapi.client.init({
+        apiKey: API_KEY,
+        clientId: CLIENT_ID,
+        scope: SCOPES,
+    }).then(() => {
+        // Sign in if necessary
+        if (gapi.auth2.getAuthInstance().isSignedIn.get()) {
+            // Already signed in
+        } else {
+            gapi.auth2.getAuthInstance().signIn();
         }
+    });
+}
 
-        function drawCard() {
-            if (currentDeck.length === 0) {
-                alert("The deck is empty! Reset the deck to draw more cards.");
-                return;
-            }
+// Call this function to save the game state to Google Drive
+function saveToGoogleDrive(gameData) {
+    const fileMetadata = {
+        'name': 'deckOfManyThings.json',  // Name of the file
+        'mimeType': 'application/json'   // MIME type for JSON
+    };
 
-            let cardIndex = Math.floor(Math.random() * currentDeck.length);
-            let card = currentDeck[cardIndex];
+    const media = {
+        mimeType: 'application/json',
+        body: JSON.stringify(gameData)
+    };
 
-            document.getElementById("card").textContent = card.name;
-            document.getElementById("card-description").textContent = card.description;
-            document.getElementById("card").classList.add("show");
+    gapi.client.drive.files.create({
+        resource: fileMetadata,
+        media: media,
+        fields: 'id'
+    }).then((response) => {
+        console.log('File uploaded successfully', response);
+    }).catch((error) => {
+        console.error('Error uploading file', error);
+    });
+}
+// After pulling a card
+function pullCard() {
+    if (deck.length === 0) {
+        pulledCardDiv.innerHTML = `<h2>No cards left to pull!</h2>`;
+        return;
+    }
 
-            currentDeck.splice(cardIndex, 1); // Remove drawn card from deck
-            updateDropdown(); // Update dropdown after removal
-        }
+    const randomIndex = Math.floor(Math.random() * deck.length);
+    const pulledCard = deck.splice(randomIndex, 1)[0]; // Pull the card and remove it from the deck
 
-        function removeSelectedCard() {
-            let dropdown = document.getElementById("remove-card");
-            let selectedCardName = dropdown.value;
+    // Display the pulled card
+    pulledCardDiv.innerHTML = `
+      <h2>You Pulled: ${pulledCard.name}</h2>
+      <p>${pulledCard.description}</p>
+    `;
+    pulledCardDiv.style.display = 'block'; // Show the pulled card
 
-            if (!selectedCardName) {
-                alert("Please select a card to remove.");
-                return;
-            }
-
-            currentDeck = currentDeck.filter(card => card.name !== selectedCardName);
-            updateDropdown();
-        }
-
-        function resetDeck() {
-            currentDeck = [...fullDeck]; // Restore full deck
-            document.getElementById("card").textContent = "";
-            document.getElementById("card-description").textContent = "";
-            document.getElementById("card").classList.remove("show");
-            updateDropdown();
-        }
-		function viewAllCards() {
-			let cardsListContainer = document.getElementById("cards-list-container");
-			let cardsList = document.getElementById("cards-list");
-
-			cardsList.innerHTML = ''; // Clear the list before populating it
-			fullDeck.forEach((card, index) => {
-			let listItem = document.createElement("li");
-			listItem.textContent = `${index + 1}. ${card.name}: ${card.description}`;
-			cardsList.appendChild(listItem);
-			});
-
-			cardsListContainer.style.display = "block"; // Show the list
-		}
-
-
-        function closeCardsList() {
-            document.getElementById("cards-list-container").style.display = "none"; // Hide the list
-        }
-
-        // Initialize dropdown on page load
-        updateDropdown();
-
+    // Save the updated game state
+    const gameState = { deck: deck, pulledCard: pulledCard };  // Save your game state
+    saveToGoogleDrive(gameState);  // Automatically save the state to Google Drive
+}

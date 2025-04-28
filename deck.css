@@ -1,96 +1,61 @@
-body, html {
-    text-align: center;
+body {
     font-family: Arial, sans-serif;
-    background: transparent;
+    background-color: #f4f4f4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
     margin: 0;
-    padding: 0;
-    height: 100%;
-    overflow-x: hidden;
 }
 
-#particles-js {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 10;
+.container {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 300px;
+    text-align: center;
 }
 
-h1, h3, p, label, select, button {
-    color: #FFD700;
+#pulled-card {
+    margin-bottom: 20px;
+    font-size: 1.5em;
 }
 
-.card-container {
+#buttons-container {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    margin-top: 50px;
-    background: transparent;
-}
-
-.card {
-    width: 250px;
-    min-height: 300px;
-    padding: 10px;
-    text-align: center;
-    font-size: 24px;
-    font-weight: bold;
-    border: 2px solid #FFD700;
-    background: rgba(75, 0, 130, 0.5);
-    opacity: 0;
-    transform: scale(0.5);
-    transition: opacity 0.5s, transform 0.5s;
-    color: #FFD700;
-    box-shadow: 0 0 10px #FFD700, 0 0 30px #FFD700 inset;
-    border-radius: 10px;
-}
-
-.card.show {
-    opacity: 1;
-    transform: scale(1);
+    gap: 10px;
 }
 
 button {
-    margin: 10px;
-    padding: 10px 20px;
-    font-size: 18px;
-    cursor: pointer;
-    background: rgba(128, 0, 128, 0.5);
-    border: 2px solid #FFD700;
+    padding: 10px;
+    background-color: #6a4c93;
+    color: white;
+    border: none;
     border-radius: 5px;
-    color: #FFD700;
-    transition: background 0.3s, box-shadow 0.3s;
+    cursor: pointer;
 }
 
 button:hover {
-    background: rgba(186, 85, 211, 0.5);
-    box-shadow: 0 0 10px #FFD700, 0 0 20px #FFD700 inset;
+    background-color: #8e6ecf;
 }
 
-.controls {
+#description-box {
     margin-top: 20px;
-    background: transparent;
+    padding: 20px;
+    background-color: #fff3f8;
+    border: 1px solid #e0a6db;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-.cards-list {
-    margin-top: 20px;
-    max-height: 300px;
-    overflow-y: auto;
-    text-align: left;
-    background: rgba(75, 0, 130, 0.5);
-    border: 2px solid #FFD700;
-    padding: 10px;
-    border-radius: 5px;
+#description-box h3 {
+    margin: 0 0 10px;
+    color: #6a4c93;
 }
 
-ul {
-    list-style-type: none;
-    padding: 0;
-}
-
-li {
-    color: #FFD700;
-    margin-bottom: 5px;
+#description-box p {
+    color: #333;
+    font-size: 1.1em;
 }
