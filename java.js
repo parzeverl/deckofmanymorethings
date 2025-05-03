@@ -74,7 +74,15 @@ const showDescriptionBtn = document.getElementById('show-description-btn');
 const pulledCardDiv = document.getElementById('pulled-card');
 const descriptionBox = document.getElementById('description-box');
 const cardDescription = document.getElementById('card-description');
-// Function to toggle the description box
+const axios = require('axios');
+const GITHUB_TOKEN = 'your_personal_access_token';
+const REPO_OWNER = 'your_github_username';
+const REPO_NAME = 'your_repo_name';
+const FILE_PATH = 'logs/card_pulls.txt';
+const COMMIT_MESSAGE = 'Log new card pull';
+const CARD_NAME = 'Dragon';
+const BRANCH = 'main';
+
 function toggleDescription() {
     if (descriptionBox.style.display === 'none' || descriptionBox.style.display === '') {
         descriptionBox.style.display = 'block';
@@ -162,21 +170,56 @@ function pullCard() {
     const randomIndex = Math.floor(Math.random() * deck.length);
     const pulledCard = deck.splice(randomIndex, 1)[0];
 
-    // Show card content
+
     pulledCardDiv.innerHTML = `
         <h2>You Pulled: ${pulledCard.name}</h2>
         <img src="${pulledCard.image}" alt="${pulledCard.name}" style="max-width: 300px; display: block; margin: 1rem 0;">
     `;
     pulledCardDiv.style.display = 'block';
 
-    // Show the show description button and reset button
+
     showDescriptionBtn.style.display = 'inline-block';
     resetDeckBtn.style.display = 'inline-block';
 
-    // Update description text
+
     cardDescription.innerHTML = pulledCard.description;
 
-    // Save the game state to Google Drive (if you care)
+
     const gameState = { deck: deck, pulledCard: pulledCard };
     saveToGoogleDrive(gameState);
 }
+async function logCardPull(cardName) {
+  const logMessage = `${new Date().toISOString()} - Pulled card: ${cardName}\n`;
+
+  // First: Get the existing file's SHA (needed for updating)
+  let sha = null;
+  try {
+    const getRes = await axios.get(`https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${FILE_PATH}`, {
+      headers: {
+        Authorization: `token ${GITHUB_TOKEN}`
+      }
+    });
+    sha = getRes.data.sha;
+  } catch (error) {
+    if (error.response && error.response.status !== 404) {
+      console.error('Failed to fetch file:', error.response.data);
+      return;
+    }
+  }
+
+  // Prepare content (base64 encode)
+  const contentRes = await axios.put(`https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${FILE_PATH}`, {
+    message: COMMIT_MESSAGE,
+    content: Buffer.from(logMessage).toString('base64'),
+    branch: BRANCH,
+    sha: sha
+  }, {
+    headers: {
+      Authorization: `token ${GITHUB_TOKEN}`
+    }
+  });
+
+  console.log('Card pull logged successfully:', contentRes.data.commit.sha);
+}
+
+logCardPull(CARD_NAME);
