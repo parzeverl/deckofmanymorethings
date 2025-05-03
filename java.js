@@ -188,38 +188,3 @@ function pullCard() {
     const gameState = { deck: deck, pulledCard: pulledCard };
     saveToGoogleDrive(gameState);
 }
-async function logCardPull(cardName) {
-  const logMessage = `${new Date().toISOString()} - Pulled card: ${cardName}\n`;
-
-  // First: Get the existing file's SHA (needed for updating)
-  let sha = null;
-  try {
-    const getRes = await axios.get(`https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${FILE_PATH}`, {
-      headers: {
-        Authorization: `token ${GITHUB_TOKEN}`
-      }
-    });
-    sha = getRes.data.sha;
-  } catch (error) {
-    if (error.response && error.response.status !== 404) {
-      console.error('Failed to fetch file:', error.response.data);
-      return;
-    }
-  }
-
-  // Prepare content (base64 encode)
-  const contentRes = await axios.put(`https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${FILE_PATH}`, {
-    message: COMMIT_MESSAGE,
-    content: Buffer.from(logMessage).toString('base64'),
-    branch: BRANCH,
-    sha: sha
-  }, {
-    headers: {
-      Authorization: `token ${GITHUB_TOKEN}`
-    }
-  });
-
-  console.log('Card pull logged successfully:', contentRes.data.commit.sha);
-}
-
-logCardPull(CARD_NAME);
