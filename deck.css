@@ -68,8 +68,8 @@ button:hover {
   border-radius: 10px;
 }
 .background {
-    width: 1500px;
-    height: 1500px
+    width: auto;
+    height: auto;
     background-color: #000000;
     z-index: -1; 
 }
