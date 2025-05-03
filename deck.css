@@ -67,9 +67,3 @@ button:hover {
   border: 3px solid gold;
   border-radius: 10px;
 }
-.background {
-    width: auto;
-    height: auto;
-    background-color: #000000;
-    z-index: -1; 
-}
