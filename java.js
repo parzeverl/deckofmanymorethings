@@ -74,15 +74,7 @@ const showDescriptionBtn = document.getElementById('show-description-btn');
 const pulledCardDiv = document.getElementById('pulled-card');
 const descriptionBox = document.getElementById('description-box');
 const cardDescription = document.getElementById('card-description');
-const axios = require('axios');
-const GITHUB_TOKEN = 'your_personal_access_token';
-const REPO_OWNER = 'your_github_username';
-const REPO_NAME = 'your_repo_name';
-const FILE_PATH = 'logs/card_pulls.txt';
-const COMMIT_MESSAGE = 'Log new card pull';
-const CARD_NAME = 'Dragon';
-const BRANCH = 'main';
-
+// Function to toggle the description box
 function toggleDescription() {
     if (descriptionBox.style.display === 'none' || descriptionBox.style.display === '') {
         descriptionBox.style.display = 'block';
@@ -181,7 +173,7 @@ function pullCard() {
     showDescriptionBtn.style.display = 'inline-block';
     resetDeckBtn.style.display = 'inline-block';
 
-
+    // Update description text
     cardDescription.innerHTML = pulledCard.description;
 
 
