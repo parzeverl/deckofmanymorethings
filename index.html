@@ -10,8 +10,10 @@
 
 <div class="container">
 
-    <div id="pulled-card"></div>
-
+    <div id="pulled-card">
+        <div id="loader" class="spinner" style="display:none;"></div>
+        <img id="cardImage" src="" alt="Pulled Card" style="display:none; max-width: 300px;">
+    </div>
 
     <div id="buttons-container">
         <button id="pull-card-btn">Pull a Card</button>
@@ -19,13 +21,12 @@
         <button id="show-description-btn" style="display:none;">Show Description</button>
     </div>
 
-
     <div id="description-box" style="display:none;">
         <h3>Card Description</h3>
         <p id="card-description">The description of the card will appear here when you click Show Description.</p>
     </div>
-</div>
 
+</div>
 
 <script src="java.js"></script>
 </body>
