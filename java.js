@@ -1,6 +1,6 @@
   const initialDeck = [
-      { name: "Aberration", description: "You gain telepathy within a range of 90 feet.",  image: "assets/aberration.png"  },
-      { name: "Balance", description: " Your mind suffers a wrenching alteration, causing your alignment to change. Lawful become chaotic, good becomes evil, and vice versa. If you are true neutral or unaligned, this card has no effect on you.",  image: "assets/ballance.png"  },
+      { name: "Aberration", description: "You gain telepathy within a range of 90 feet.",  image: "assets/abberation.png"  },
+      { name: "Balance", description: " Your mind suffers a wrenching alteration, causing your alignment to change. Lawful become chaotic, good becomes evil, and vice versa. If you are true neutral or unaligned, this card has no effect on you.",  image: "assets/balance.png"  },
       { name: "Beast", description: "You immediately transform into a random Beast with a CR of 5 or lower. Your game statistics—including your ability scores, hit points, and possible actions—are replaced by the Beast’s game statistics, and any nonmagical equipment you’re wearing or carrying melds into your new form and can’t be used. Any magic items you’re carrying drop in an unoccupied space within 5 feet of your new form.<br>You remain transformed in this way for 2d12 days; nothing can alter your form while you’re under the effects of this card, but the Wish spell can end the transformation early. When you revert to your normal form, you return to the same state you were in when you initially transformed.",  image: "assets/beast.png"  },
       { name: "Book", description: "You gain the ability to speak, read, and write 1d6 + 2 languages of your choice.",  image: "assets/book.png"  },
       { name: "Bridge", description: "You gain the ability to cast the Time Stop spell 1d3 times. Use your Intelligence, Wisdom, or Charisma as the spellcasting ability (your choice).",  image: "assets/bridge.png"  },
@@ -20,7 +20,7 @@
       { name: "Fates", description: "Reality's fabric unravels and spins anew, allowing you to avoid or erase one event as if it never happened. You can use the card's magic as soon as you draw the card or at any other time before you die.",  image: "assets/fates.png"  },
       { name: "Fey", description: " A fey crossing opens into the Feywild, and you’re immediately pulled through it, disappearing in a flash of rainbow-colored light. You draw no more cards. <br>The fey crossing appears as a shimmering fractal of light above the deck, and it remains open for 1 minute after the card is drawn. The precise location in the Feywild to which the fey crossing leads is determined by the DM.",  image: "assets/fey.png"  },
       { name: "Fiend", description: "A powerful Fiend appears in a nearby unoccupied space and offers you a deal. The precise nature of this deal is up to the DM, but usually the Fiend offers some material reward in exchange for you and your allies completing a task for the Fiend. The Fiend is indifferent to you and can be bargained with; it keeps its side of any bargain it makes, though it might twist the wording of any agreement to suit its purposes. If attacked, or if negotiations fail and you refuse the Fiend’s offer, it returns to its home plane.",  image: "assets/fiend.png"  },
-      { name: "Flames", description: "A powerful devil becomes your enemy. The devil seeks your ruin and plagues your life, savoring your suffering before attempting to slay you. This enmity lasts until either you or the devil dies.",  image: "assets/flame.png"  },
+      { name: "Flames", description: "A powerful devil becomes your enemy. The devil seeks your ruin and plagues your life, savoring your suffering before attempting to slay you. This enmity lasts until either you or the devil dies.",  image: "assets/flames.png"  },
       { name: "Fool", description: "You lose 10,000 XP, discard this card, and draw from the deck again, counting both draws as one of your declared draws. If losing that much XP would cause you to lose a level, you instead lose an amount that leaves you with just enough XP to keep your level.",  image: "assets/fool.png"  },
       { name: "Gem", description: "Twenty-five pieces of jewelry worth 2,000 gp each or fifty gems worth 1,000 gp each appear at your feet.",  image: "assets/gem.png"  },
       { name: "Giant", description: "You immediately grow 2d10 inches in height, and your hit point maximum and current hit points both increase by 20.",  image: "assets/giant.png"  },
@@ -43,7 +43,7 @@
       { name: "Prisoner", description: "Glowing chains made of magical force appear and wrap around you. You have the restrained condition until the chains are destroyed or you are freed. While you have this condition, you can’t cast spells, and any magic items you’re wearing or carrying have their properties suppressed. You draw no more cards. The chains are immune to damage and can’t be dispelled using the Dispel Magic spell or similar magic. However, a Disintegrate spell destroys the chains instantly, freeing you. Another creature can also free you by succeeding on a DC 30 Dexterity check using thieves’ tools.",  image: "assets/prisoner.png"  },
       { name: "Puzzle", description: "Permanently reduce your Intelligence by 1d4 + 1 (to a minimum score of 1). You can draw one additional card beyond your declared draws.",  image: "assets/puzzle.png"  },
       { name: "Ring", description: "A rare or rarer magic ring appears on your finger. If you have the attunement slots available, you’re automatically attuned to the ring when it appears. The DM chooses the ring.",  image: "assets/ring.png"  },
-      { name: "Rogue", description: "A nonplayer character of the DM's choice becomes hostile toward you. The identity of your new enemy isn't known until the NPC or someone else reveals it. Nothing less than a Wish spell or divine intervention can end the NPC's hostility toward you.",  image: "assets/rouge.png"  },
+      { name: "Rogue", description: "A nonplayer character of the DM's choice becomes hostile toward you. The identity of your new enemy isn't known until the NPC or someone else reveals it. Nothing less than a Wish spell or divine intervention can end the NPC's hostility toward you.",  image: "assets/rogue.png"  },
       { name: "Ruin", description: " All forms of wealth that you carry or own, other than magic items, are lost to you. Portable property vanishes. Businesses, buildings, and land you own are lost in a way that alters reality the least. Any documentation that proves you should own something lost to this card also disappears.",  image: "assets/ruin.png"  },
       { name: "Sage", description: "At any time you choose within one year of drawing this card, you can ask a question in meditation and mentally receive a truthful answer to that question. Besides information, the answer helps you solve a puzzling problem or other dilemma. In other words, the knowledge comes with wisdom on how to apply it.",  image: "assets/sage.png"  },
       { name: "Shield", description: " A rare or rarer suit of magic armor that you are proficient with appears in your hands. The DM chooses the armor. If you lack proficiency with any armor, your base AC instead now equals 12 + your Dexterity modifier while you aren’t wearing armor.",  image: "assets/shield.png"  },
@@ -103,54 +103,8 @@ resetDeckBtn.addEventListener('click', resetDeck);
 
 showDescriptionBtn.addEventListener('click', toggleDescription);
 
-const CLIENT_ID = '852529225824-euev19uv25vbh40d7usck444p4rq89q2.apps.googleusercontent.com';
-const API_KEY = 'AIzaSyDSzszuSSxPmry48Vf0aQwcnCEGWLHUwBg';
 
-
-const SCOPES = 'https://www.googleapis.com/auth/drive.file';
-
-
-function handleClientLoad() {
-    gapi.load('client:auth2', initClient);
-}
-
-function initClient() {
-    gapi.client.init({
-        apiKey: API_KEY,
-        clientId: CLIENT_ID,
-        scope: SCOPES,
-    }).then(() => {
-
-        if (gapi.auth2.getAuthInstance().isSignedIn.get()) {
-
-        } else {
-            gapi.auth2.getAuthInstance().signIn();
-        }
-    });
-}
-
-
-function saveToGoogleDrive(gameData) {
-    const fileMetadata = {
-        'name': 'deckOfManyThings.json',
-        'mimeType': 'application/json'
-    };
-
-    const media = {
-        mimeType: 'application/json',
-        body: JSON.stringify(gameData)
-    };
-
-    gapi.client.drive.files.create({
-        resource: fileMetadata,
-        media: media,
-        fields: 'id'
-    }).then((response) => {
-        console.log('File uploaded successfully', response);
-    }).catch((error) => {
-        console.error('Error uploading file', error);
-    });
-}
+f
 
 function pullCard() {
     if (deck.length === 0) {
@@ -164,16 +118,16 @@ function pullCard() {
 
 
     pulledCardDiv.innerHTML = `
-        <h2>You Pulled: ${pulledCard.name}</h2>
+      
         <img src="${pulledCard.image}" alt="${pulledCard.name}" style="max-width: 300px; display: block; margin: 1rem 0;">
     `;
     pulledCardDiv.style.display = 'block';
 
 
     showDescriptionBtn.style.display = 'inline-block';
-    resetDeckBtn.style.display = 'inline-block';
+    resetDeckBtn.style.display = 'none';
 
-    // Update description text
+
     cardDescription.innerHTML = pulledCard.description;
 
 
