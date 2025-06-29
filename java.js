@@ -67,80 +67,81 @@
       { name: "Well", description: " You learn three cantrips of your choice from any spell list.",  image: "assets/well.PNG"  }
     ];
 
-let deck = [...initialDeck];
-const pullCardBtn = document.getElementById('pull-card-btn');
-const resetDeckBtn = document.getElementById('reset-deck-btn');
-const showDescriptionBtn = document.getElementById('show-description-btn');
-const pulledCardDiv = document.getElementById('pulled-card');
-const descriptionBox = document.getElementById('description-box');
-const cardDescription = document.getElementById('card-description');
-const cardImage = document.getElementById("cardImage");
-const loader = document.getElementById("loader");
+    let deck = [...initialDeck];
 
-function toggleDescription() {
-    if (descriptionBox.style.display === 'none' || descriptionBox.style.display === '') {
-        descriptionBox.style.display = 'block';
-        showDescriptionBtn.innerHTML = 'Hide Description';
-    } else {
-        descriptionBox.style.display = 'none';
-        showDescriptionBtn.innerHTML = 'Show Description';
+    function preloadImages() {
+      initialDeck.forEach(card => {
+        const img = new Image();
+        img.src = card.image;
+      });
     }
-}
+    preloadImages();
+
+    document.addEventListener("DOMContentLoaded", () => {
+      const pullCardBtn = document.getElementById('pull-card-btn');
+      const resetDeckBtn = document.getElementById('reset-deck-btn');
+      const showDescriptionBtn = document.getElementById('show-description-btn');
+      const pulledCardDiv = document.getElementById('pulled-card');
+      const descriptionBox = document.getElementById('description-box');
+      const cardDescription = document.getElementById('card-description');
+
+      pullCardBtn.addEventListener('click', pullCard);
+      resetDeckBtn.addEventListener('click', resetDeck);
+      showDescriptionBtn.addEventListener('click', toggleDescription);
+
+     function pullCard() {
+       if (deck.length === 0) {
+         pulledCardDiv.innerHTML = `<h2>No cards left to pull!</h2>`;
+         showDescriptionBtn.style.display = 'none';
+         return;
+       }
+
+       const randomIndex = Math.floor(Math.random() * deck.length);
+       const pulledCard = deck.splice(randomIndex, 1)[0];
+
+       pulledCardDiv.innerHTML = `<div id="loader" class="spinner"></div>`;
+
+       const img = document.createElement("img");
+       img.src = pulledCard.image;
+       img.alt = pulledCard.name;
+       img.className = "card-image";
+
+       img.onload = () => {
+         pulledCardDiv.innerHTML = "";
+         pulledCardDiv.appendChild(img);
+       };
+
+       pulledCardDiv.style.display = 'block';
+       showDescriptionBtn.style.display = 'inline-block';
+       resetDeckBtn.style.display = 'none';
+
+       // Set card description text
+       cardDescription.innerHTML = pulledCard.description;
+
+       // Make sure description is hidden on pull
+       descriptionBox.style.display = 'none';
+       showDescriptionBtn.innerHTML = 'Show Description';
+
+       const gameState = { deck: deck, pulledCard: pulledCard };
+       saveToGoogleDrive(gameState);
+     }
 
 
-function resetDeck() {
-    deck = [...initialDeck];
-    resetDeckBtn.style.display = 'none';
-    pulledCardDiv.style.display = 'none';
-    showDescriptionBtn.style.display = 'none';
-    descriptionBox.style.display = 'none';
-}
-
-
-pullCardBtn.addEventListener('click', pullCard);
-
-
-resetDeckBtn.addEventListener('click', resetDeck);
-
-
-showDescriptionBtn.addEventListener('click', toggleDescription);
-
-
-f
-
-function pullCard() {
-    if (deck.length === 0) {
-        pulledCardDiv.innerHTML = `<h2>No cards left to pull!</h2>`;
+      function resetDeck() {
+        deck = [...initialDeck];
+        resetDeckBtn.style.display = 'none';
+        pulledCardDiv.innerHTML = '';
         showDescriptionBtn.style.display = 'none';
-        return;
-    }
+        descriptionBox.style.display = 'none';
+      }
 
-    const randomIndex = Math.floor(Math.random() * deck.length);
-    const pulledCard = deck.splice(randomIndex, 1)[0];
-
-
-    pulledCardDiv.innerHTML = `
-
-        <img src="${pulledCard.image}" alt="${pulledCard.name}" style="max-width: 300px; display: block; margin: 1rem 0;">
-    `;
-    pulledCardDiv.style.display = 'block';
-
-
-    showDescriptionBtn.style.display = 'inline-block';
-    resetDeckBtn.style.display = 'none';
-
-
-    cardDescription.innerHTML = pulledCard.description;
-
-
-    const gameState = { deck: deck, pulledCard: pulledCard };
-    saveToGoogleDrive(gameState);
-}
-
-cardImage.onload = function() {
-    loader.style.display = "none";
-    cardImage.style.display = "block";
-}
-
-
-cardImage.src = "./assests/card.PNG";
+      function toggleDescription() {
+        if (descriptionBox.style.display === 'none' || descriptionBox.style.display === '') {
+          descriptionBox.style.display = 'block';
+          showDescriptionBtn.innerHTML = 'Hide Description';
+        } else {
+          descriptionBox.style.display = 'none';
+          showDescriptionBtn.innerHTML = 'Show Description';
+        }
+      }
+    });
